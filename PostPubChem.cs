@@ -39,6 +39,8 @@ namespace Biotransformer
                     if (!PubChemSMILES.ContainsKey(splitChem[0]))
                         PubChemSMILES.Add(splitChem[0], splitChem[1]);
                 }
+                else
+                    PubChemSMILES.Add(chem, null);
                 
             }
 
