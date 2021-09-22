@@ -1,5 +1,6 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.IO;
 
 namespace Biotransformer
@@ -76,19 +77,22 @@ Once the text file has loaded, copy and paste the resulting data into the file t
 
             Console.Clear();
 
-            int i = 0;
-
-            Dictionary<string, string> SMILESKey = new Dictionary<string, string>();
             List<string> BioTransformerCMDS = new List<string>();
+
+            Dictionary<string, string> LocalSMILES = PostPubChem.PubChemSMILES;
             foreach (var value in PostPubChem.PubChemSMILES)
             {
-                i = i + 1;
-                string name = ($"{listName}" + ".cmpnd" + i + "." + fileType);
-                string bio = "java - jar \"biotransformer-1.1.5 (1).jar\" -k pred -b " + metabolismType + " -ismi \"" + value.Value + "\" -ocsv " + name + " -s 1";
-                Console.WriteLine(bio);
+                if (value.Value != null)
+                {
+                    int i = 0;
+                    i = i + 1;
 
-                BioTransformerCMDS.Add(bio);
-                SMILESKey.Add(value.Key, value.Value);
+                    string name = ($"{listName}" + ".cmpnd" + i + "." + fileType);
+                    string bio = "java - jar \"biotransformer-1.1.5 (1).jar\" -k pred -b " + metabolismType + " -ismi \"" + value.Value + "\" -ocsv " + name + " -s 1";
+                    Console.WriteLine(bio);
+
+                    BioTransformerCMDS.Add(bio);
+                }
             }
 
             Log.Info("\n\nProcess Completed. Press \'Enter\' to create a Biotransformer Input & Key File (This will overwrite any existing file)");
@@ -108,13 +112,14 @@ Once the text file has loaded, copy and paste the resulting data into the file t
                 sw.WriteLine("------------------------------------------------------------------------------------------");
 
                 sw.WriteLine("SMILES Key");
-
-                int x = 0;
                 foreach (var val in PostPubChem.PubChemSMILES)
                 {
-                    x = x + 1;
-                    sw.WriteLine($"[{x}] - {val.Key} | {val.Value}");
+                    if (val.Key != null)
+                        sw.WriteLine($"{val.Value}");
+                    else
+                        sw.WriteLine("");
                 }
+                sw.WriteLine("------------------------------------------------------------------------------------------");
                 sw.Close();
             }
 
@@ -210,5 +215,6 @@ Once the text file has loaded, copy and paste the resulting data into the file t
                 }
             }
         }
+
     }
 }
