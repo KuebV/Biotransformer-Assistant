@@ -9,15 +9,20 @@ namespace Biotransformer
     {
         static void Main(string[] args)
         {
+            Log.WriteLine("BioTransformer-Assistant", ConsoleColor.Cyan);
+            Log.WriteLine("By: Robert Thompson (https://github.com/KuebV)\n", ConsoleColor.Red);
 
+            Log.WriteLine("Select one of the options below :", ConsoleColor.Magenta);
+            Console.WriteLine("1. Paste compound individually (Good for quick and easy conversions)");
+            Console.WriteLine("2. Load Compounds via File (If you got a lot of compounds you want done quickly)");
+
+            Console.WriteLine("3. Setup Program (Only use if this is your first time)");
+            // This is where it all begins, with the Menu
             bool menu = true;
             while (menu)
             {
-                Console.WriteLine("What would you like to do?");
-                Console.WriteLine("1. Paste compound individually (Good for quick and easy conversions)");
-                Console.WriteLine("2. Load Compounds via File (If you got a lot of compounds you want done quickly)");
-                Console.WriteLine("3. Setup Program (Only use if this is your first time)");
-
+                
+                // Define the Index Integer, it will attempt to parse the input as an integer, if it is unable to, display error
                 int index;
                 if (int.TryParse(Console.ReadLine(), out index))
                 {
@@ -37,10 +42,16 @@ namespace Biotransformer
                             Console.ReadLine();
                             Environment.Exit(0);
                             break;
+                        default:
+                            Log.Error("Invalid Input");
+                            break;
                     }
                 }
+                else
+                    Log.Error("Invalid Input : Must be type Integer");
             }
 
+            // When the inital compounds are parsed, run this function
             Log.Info("Press \'Enter\' to continue into the next section");
             Console.ReadLine();
 
@@ -59,30 +70,35 @@ Once the text file has loaded, copy and paste the resulting data into the file t
 
             Log.Info("When you have pasted the data into the PubChemOutput File, Press \'Enter\' to start the parsing process");
             Console.ReadLine();
+            Log.Warning("This may take several seconds, please be patient!");
+
             PostPubChem.LoadChemFile();
 
             Log.Success("Done!");
             Log.Info("Press \'Enter\' to continue into the final step");
             Console.ReadLine();
 
+            // Ask for the types that BioTransformer needs, if nothing is inputted, just default
             Console.Clear();
-            Log.Info("Enter metabolism type: ");
+            Log.Info("Enter metabolism type (default: allHuman) : ");
             string metabolismType = Console.ReadLine();
             if (string.IsNullOrEmpty(metabolismType))
                 metabolismType = "allHuman";
 
-            Log.Info("Enter file type: ");
+            Log.Info("Enter file type (default: csv) : ");
             string fileType = Console.ReadLine();
             if (string.IsNullOrEmpty(fileType))
                 fileType = "csv";
 
-            Log.Info("Enter list name: ");
+            Log.Info("Enter list name (default: list1) : ");
             string listName = Console.ReadLine();
             if (string.IsNullOrEmpty(listName))
                 listName = "list1";
 
             Console.Clear();
 
+            // Logic Almighty
+            // I don't care to explain how this all works, but the point being, it works, and it works well
             List<string> BioTransformerCMDS = new List<string>();
 
             Dictionary<string, string> LocalSMILES = PostPubChem.PubChemSMILES;
@@ -107,6 +123,7 @@ Once the text file has loaded, copy and paste the resulting data into the file t
             string finalOutput = Path.Combine(Directory.GetCurrentDirectory(), "BioTransformerInput.txt");
             File.Delete(finalOutput);
 
+            //Format the BioTransformerInput
             using (StreamWriter sw = new StreamWriter(finalOutput))
             {
                 sw.WriteLine("BioTransformer Input:");
