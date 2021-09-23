@@ -71,7 +71,7 @@ Both these errors result in either one of them not existing, you must setup the 
 **If any of your outputs are empty, and you are expecting a result, check your text files, one of them may be empty!**
 
 ### Unable to Open Program
-You may need to install the .NET Framework
+You may need to install the .NET Core Runtime
 
 Dotnet Core Runtime - [Download](https://dotnet.microsoft.com/download/dotnet/thank-you/runtime-3.1.19-windows-x64-installer)
 
