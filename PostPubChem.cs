@@ -50,7 +50,7 @@ namespace Biotransformer
         }
 
 
-        /// <summary>
+         /// <summary>
         /// There are a lot of ways to go about this,
         /// One of them being taking the 6 most prominent characters in the SMILES format, those being c, p, o, h, n, s
         /// 
@@ -83,10 +83,9 @@ namespace Biotransformer
                 // If there is only 1 word found in the line, then we most likely know it doesnt have a SMILES Compound
                 case 0:
                 case 1:
-                    Log.Info($"{possibleSmiles} does not have any valid SMILES");
                     PubChemSMILES.Add(possibleSmiles, null);
                     break;
-                
+
                 // If there is 2 words found in the line, the previous method is viable, but first we have to test for things that are unlikely, but may happen
                 case 2:
                     #region If the possible smiles has any character in here, then it automatically nulls it
@@ -100,8 +99,10 @@ namespace Biotransformer
                         string[] splitChem = possibleSmiles.Split(' ');
                         if (!PubChemSMILES.ContainsKey(splitChem[0]))
                             PubChemSMILES.Add(splitChem[0], splitChem[1]);
-
-                        Log.Info($"{splitChem[0]} has SMILE of: " + splitChem[1]);
+                        else
+                        {
+                            PubChemSMILES.Add(string.Format("{0}({1})", splitChem[0], PubChemSMILES.Count + 1), null);
+                        }
 
                     }
 
@@ -126,13 +127,17 @@ namespace Biotransformer
                             // Gets the index of the SMILE
                             int indexOfSMILE = Array.IndexOf(possibleCompounds, str);
                             string compoundName = string.Format("{0}_{1}", possibleCompounds[0], possibleCompounds[1]);
-                            PubChemSMILES.Add(compoundName, str);
 
-                            Log.Info($"{compoundName} has SMILE of: " + str);
+                            // On the rare occasion that PubChem spits out a compound that has both 3 letters, and is a duplicate
+                            // If it exists already, enter it in as null
+                            if (!PubChemSMILES.ContainsKey(compoundName))
+                                PubChemSMILES.Add(compoundName, str);
+                            else
+                                PubChemSMILES.Add(string.Format("{0}({1})", compoundName, PubChemSMILES.Count + 1), null);
                         }
                     }
                     break;
-                
+
 
 
             }
