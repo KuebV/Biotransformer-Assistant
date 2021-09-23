@@ -2,7 +2,7 @@
 BioTransformer-Assistant is a project made for the sole purpose of easily converting compounds into parsed down data, that can be inputted into different programs
 
 ## Setting Up
-Depending on your Operating System, you may want to use different .NET Builds. However, the .NET Framework should work on all frameworks
+This project has moved over to **.NET Core 3.1** rather than **.NET Framework 4.8**
 
 **Starting Off:**
 1. Open BTA.zip and extract to anywhere on your computer
@@ -72,8 +72,6 @@ Both these errors result in either one of them not existing, you must setup the 
 
 ### Unable to Open Program
 You may need to install the .NET Framework
-
-Dotnet Framework Runtime - [Download](https://dotnet.microsoft.com/download/dotnet-framework/thank-you/net48-web-installer)
 
 Dotnet Core Runtime - [Download](https://dotnet.microsoft.com/download/dotnet/thank-you/runtime-3.1.19-windows-x64-installer)
 
