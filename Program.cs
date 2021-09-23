@@ -68,25 +68,30 @@ Once the text file has loaded, copy and paste the resulting data into the file t
             Console.Clear();
             Log.Info("Enter metabolism type: ");
             string metabolismType = Console.ReadLine();
+            if (string.IsNullOrEmpty(metabolismType))
+                metabolismType = "allHuman";
 
             Log.Info("Enter file type: ");
             string fileType = Console.ReadLine();
+            if (string.IsNullOrEmpty(fileType))
+                fileType = "csv";
 
             Log.Info("Enter list name: ");
             string listName = Console.ReadLine();
+            if (string.IsNullOrEmpty(listName))
+                listName = "list1";
 
             Console.Clear();
 
             List<string> BioTransformerCMDS = new List<string>();
 
             Dictionary<string, string> LocalSMILES = PostPubChem.PubChemSMILES;
+            int i = 0;
             foreach (var value in PostPubChem.PubChemSMILES)
             {
+                i = i + 1;
                 if (value.Value != null)
                 {
-                    int i = 0;
-                    i = i + 1;
-
                     string name = ($"{listName}" + ".cmpnd" + i + "." + fileType);
                     string bio = "java - jar \"biotransformer-1.1.5 (1).jar\" -k pred -b " + metabolismType + " -ismi \"" + value.Value + "\" -ocsv " + name + " -s 1";
                     Console.WriteLine(bio);
@@ -112,6 +117,7 @@ Once the text file has loaded, copy and paste the resulting data into the file t
                 sw.WriteLine("------------------------------------------------------------------------------------------");
 
                 sw.WriteLine("SMILES Key");
+                sw.WriteLine("------------------------------------------------------------------------------------------");
                 foreach (var val in PostPubChem.PubChemSMILES)
                 {
                     if (val.Key != null)
