@@ -11,3 +11,17 @@ E:\Programming\C#\Biotransformer_Assistant\Biotransformer_Assistant\bin\Debug\ne
 E:\Programming\C#\Biotransformer_Assistant\Biotransformer_Assistant\obj\Debug\netcoreapp3.1\Biotransformer_Assistant.dll
 E:\Programming\C#\Biotransformer_Assistant\Biotransformer_Assistant\obj\Debug\netcoreapp3.1\Biotransformer_Assistant.pdb
 E:\Programming\C#\Biotransformer_Assistant\Biotransformer_Assistant\obj\Debug\netcoreapp3.1\Biotransformer_Assistant.genruntimeconfig.cache
+C:\Users\mary\Desktop\BTA\Biotransformer-Assistant\Biotransformer_Assistant\bin\Debug\netcoreapp3.1\Biotransformer_Assistant.exe
+C:\Users\mary\Desktop\BTA\Biotransformer-Assistant\Biotransformer_Assistant\bin\Debug\netcoreapp3.1\Biotransformer_Assistant.deps.json
+C:\Users\mary\Desktop\BTA\Biotransformer-Assistant\Biotransformer_Assistant\bin\Debug\netcoreapp3.1\Biotransformer_Assistant.runtimeconfig.json
+C:\Users\mary\Desktop\BTA\Biotransformer-Assistant\Biotransformer_Assistant\bin\Debug\netcoreapp3.1\Biotransformer_Assistant.runtimeconfig.dev.json
+C:\Users\mary\Desktop\BTA\Biotransformer-Assistant\Biotransformer_Assistant\bin\Debug\netcoreapp3.1\Biotransformer_Assistant.dll
+C:\Users\mary\Desktop\BTA\Biotransformer-Assistant\Biotransformer_Assistant\bin\Debug\netcoreapp3.1\Biotransformer_Assistant.pdb
+C:\Users\mary\Desktop\BTA\Biotransformer-Assistant\Biotransformer_Assistant\obj\Debug\netcoreapp3.1\Biotransformer_Assistant.csproj.AssemblyReference.cache
+C:\Users\mary\Desktop\BTA\Biotransformer-Assistant\Biotransformer_Assistant\obj\Debug\netcoreapp3.1\Biotransformer_Assistant.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\mary\Desktop\BTA\Biotransformer-Assistant\Biotransformer_Assistant\obj\Debug\netcoreapp3.1\Biotransformer_Assistant.AssemblyInfoInputs.cache
+C:\Users\mary\Desktop\BTA\Biotransformer-Assistant\Biotransformer_Assistant\obj\Debug\netcoreapp3.1\Biotransformer_Assistant.AssemblyInfo.cs
+C:\Users\mary\Desktop\BTA\Biotransformer-Assistant\Biotransformer_Assistant\obj\Debug\netcoreapp3.1\Biotransformer_Assistant.csproj.CoreCompileInputs.cache
+C:\Users\mary\Desktop\BTA\Biotransformer-Assistant\Biotransformer_Assistant\obj\Debug\netcoreapp3.1\Biotransformer_Assistant.dll
+C:\Users\mary\Desktop\BTA\Biotransformer-Assistant\Biotransformer_Assistant\obj\Debug\netcoreapp3.1\Biotransformer_Assistant.pdb
+C:\Users\mary\Desktop\BTA\Biotransformer-Assistant\Biotransformer_Assistant\obj\Debug\netcoreapp3.1\Biotransformer_Assistant.genruntimeconfig.cache

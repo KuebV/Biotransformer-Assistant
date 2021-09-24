@@ -11,11 +11,13 @@ namespace Biotransformer_Assistant
             Log.WriteLine("BioTransformer-Assistant", ConsoleColor.Cyan);
             Log.WriteLine("By: Robert Thompson (https://github.com/KuebV)\n", ConsoleColor.Red);
 
-            Log.WriteLine("Select one of the options below :", ConsoleColor.Magenta);
-            Console.WriteLine("1. Paste compound individually (Good for quick and easy conversions)");
-            Console.WriteLine("2. Load Compounds via File (If you got a lot of compounds you want done quickly)");
-
-            Console.WriteLine("3. Setup Program (Only use if this is your first time)");
+            Log.WriteLine("Please enter 1, 2, or 3 to select one of the options below:", ConsoleColor.Cyan);
+            Log.WriteLine("----------------------------------------------------------", ConsoleColor.Blue);
+            Log.WriteLine("[1] Load compounds from file	    (primary use)", ConsoleColor.Cyan);
+            Log.WriteLine("[2] Parse skipped compounds 	    (only use if you’ve completed option [1])", ConsoleColor.Cyan);
+            Log.WriteLine("[3] Setup Program 		    (please use if this is your first time)", ConsoleColor.Cyan);
+            Log.WriteLine("----------------------------------------------------------", ConsoleColor.Blue);
+            Log.Write("Input: ", ConsoleColor.Yellow);
             // This is where it all begins, with the Menu
             bool menu = true;
             while (menu)
