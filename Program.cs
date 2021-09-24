@@ -106,7 +106,7 @@ Once the text file has loaded, copy and paste the resulting data into the file t
             foreach (var value in PostPubChem.PubChemSMILES)
             {
                 i = i + 1;
-                if (value.Value != null)
+                if (!string.IsNullOrEmpty(value.Value))
                 {
                     string name = ($"{listName}" + ".cmpnd" + i + "." + fileType);
                     string bio = "java - jar \"biotransformer-1.1.5 (1).jar\" -k pred -b " + metabolismType + " -ismi \"" + value.Value + "\" -ocsv " + name + " -s 1";
