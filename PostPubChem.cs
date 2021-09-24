@@ -42,15 +42,15 @@ namespace Biotransformer
                     Console.ReadLine();
                     Environment.Exit(0);
                 }
-
                 IsSmiles(chem);
-                
+
             }
+            Log.Info("PubChemOutput has: " + line + " possible compounds");
 
         }
 
 
-         /// <summary>
+        /// <summary>
         /// There are a lot of ways to go about this,
         /// One of them being taking the 6 most prominent characters in the SMILES format, those being c, p, o, h, n, s
         /// 
@@ -66,7 +66,8 @@ namespace Biotransformer
         public static void IsSmiles(string obj)
         {
             // Define the characters that are typically found in SMILES
-            List<char> SMILESCharacters = new List<char> { 'C', 'P', 'O', 'H', 'N', 'S' };
+            // This is oddly never used, since only 1 character is needed, that being C
+            //List<char> SMILESCharacters = new List<char> { 'C', 'P', 'O', 'H', 'N', 'S' };
 
             // This is still very helpful in removing useless whitespaces
             string possibleSmiles = ReplaceWhitespaces(obj);
@@ -90,19 +91,19 @@ namespace Biotransformer
                 case 2:
                     #region If the possible smiles has any character in here, then it automatically nulls it
                     if (possibleSmiles.Contains('*'))
-                        PubChemSMILES.Add(possibleSmiles, null);
+                        PubChemSMILES.Add(string.Format("{0}({1})", possibleSmiles, PubChemSMILES.Count + 1), null);
                     else if (possibleSmiles.Contains("iso3") || possibleSmiles.Contains("iso6"))
-                        PubChemSMILES.Add(possibleSmiles, null);
+                        PubChemSMILES.Add(string.Format("{0}({1})", possibleSmiles, PubChemSMILES.Count + 1), null);
                     #endregion
                     else
                     {
                         string[] splitChem = possibleSmiles.Split(' ');
                         if (!PubChemSMILES.ContainsKey(splitChem[0]))
                             PubChemSMILES.Add(splitChem[0], splitChem[1]);
-                        else
-                        {
-                            PubChemSMILES.Add(string.Format("{0}({1})", splitChem[0], PubChemSMILES.Count + 1), null);
-                        }
+                        //else
+                        //{
+                        //    PubChemSMILES.Add(string.Format("{0}({1})", splitChem[0], PubChemSMILES.Count + 1), null);
+                        //}
 
                     }
 
@@ -132,8 +133,8 @@ namespace Biotransformer
                             // If it exists already, enter it in as null
                             if (!PubChemSMILES.ContainsKey(compoundName))
                                 PubChemSMILES.Add(compoundName, str);
-                            else
-                                PubChemSMILES.Add(string.Format("{0}({1})", compoundName, PubChemSMILES.Count + 1), null);
+                            //else
+                            //    PubChemSMILES.Add(string.Format("{0}({1})", compoundName, PubChemSMILES.Count + 1), null);
                         }
                     }
                     break;
