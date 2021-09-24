@@ -1,0 +1,13 @@
+E:\Programming\C#\Biotransformer_Assistant\Biotransformer_Assistant\obj\Debug\netcoreapp3.1\Biotransformer_Assistant.csproj.AssemblyReference.cache
+E:\Programming\C#\Biotransformer_Assistant\Biotransformer_Assistant\obj\Debug\netcoreapp3.1\Biotransformer_Assistant.AssemblyInfoInputs.cache
+E:\Programming\C#\Biotransformer_Assistant\Biotransformer_Assistant\obj\Debug\netcoreapp3.1\Biotransformer_Assistant.AssemblyInfo.cs
+E:\Programming\C#\Biotransformer_Assistant\Biotransformer_Assistant\obj\Debug\netcoreapp3.1\Biotransformer_Assistant.csproj.CoreCompileInputs.cache
+E:\Programming\C#\Biotransformer_Assistant\Biotransformer_Assistant\bin\Debug\netcoreapp3.1\Biotransformer_Assistant.exe
+E:\Programming\C#\Biotransformer_Assistant\Biotransformer_Assistant\bin\Debug\netcoreapp3.1\Biotransformer_Assistant.deps.json
+E:\Programming\C#\Biotransformer_Assistant\Biotransformer_Assistant\bin\Debug\netcoreapp3.1\Biotransformer_Assistant.runtimeconfig.json
+E:\Programming\C#\Biotransformer_Assistant\Biotransformer_Assistant\bin\Debug\netcoreapp3.1\Biotransformer_Assistant.runtimeconfig.dev.json
+E:\Programming\C#\Biotransformer_Assistant\Biotransformer_Assistant\bin\Debug\netcoreapp3.1\Biotransformer_Assistant.dll
+E:\Programming\C#\Biotransformer_Assistant\Biotransformer_Assistant\bin\Debug\netcoreapp3.1\Biotransformer_Assistant.pdb
+E:\Programming\C#\Biotransformer_Assistant\Biotransformer_Assistant\obj\Debug\netcoreapp3.1\Biotransformer_Assistant.dll
+E:\Programming\C#\Biotransformer_Assistant\Biotransformer_Assistant\obj\Debug\netcoreapp3.1\Biotransformer_Assistant.pdb
+E:\Programming\C#\Biotransformer_Assistant\Biotransformer_Assistant\obj\Debug\netcoreapp3.1\Biotransformer_Assistant.genruntimeconfig.cache
