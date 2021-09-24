@@ -107,8 +107,9 @@ Once the text file has loaded, copy and paste the resulting data into the file t
                 i = i + 1;
                 if (!string.IsNullOrEmpty(value.Value))
                 {
+                    // Welcome Back To: Double check your strings before publishing incase a theres a random space preventing the program from running
                     string name = ($"{listName}" + ".cmpnd" + i + "." + fileType);
-                    string bio = "java - jar \"biotransformer-1.1.5 (1).jar\" -k pred -b " + metabolismType + " -ismi \"" + value.Value + "\" -ocsv " + name + " -s 1";
+                    string bio = "java -jar \"biotransformer-1.1.5 (1).jar\" -k pred -b " + metabolismType + " -ismi \"" + value.Value + "\" -o" + fileType + " " + name + " -s 1";
                     Console.WriteLine(bio);
 
                     BioTransformerCMDS.Add(bio);
@@ -145,7 +146,6 @@ Once the text file has loaded, copy and paste the resulting data into the file t
                 sw.Close();
             }
 
-
         }
 
         public static List<string> Compounds = new List<string>();
@@ -177,6 +177,17 @@ Once the text file has loaded, copy and paste the resulting data into the file t
                 Console.WriteLine(comp);
 
 
+            string parsedOutput = Path.Combine(Directory.GetCurrentDirectory(), "ParsedOutput.txt");
+            File.Delete(parsedOutput);
+            using (StreamWriter SW = new StreamWriter(parsedOutput))
+            {
+                foreach (string compounds in ParsedCompoundsFromFile)
+                {
+                    SW.WriteLine(compounds);
+                }
+            }
+
+
         }
 
         public static void PasteIndivdualCompounds()
@@ -205,6 +216,16 @@ Once the text file has loaded, copy and paste the resulting data into the file t
             foreach (string parsed in ParsedCompounds)
                 Console.WriteLine(parsed);
 
+            string parsedOutput = Path.Combine(Directory.GetCurrentDirectory(), "ParsedOutput.txt");
+            File.Delete(parsedOutput);
+            using (StreamWriter SW = new StreamWriter(parsedOutput))
+            {
+                foreach (string compounds in ParsedCompoundsFromFile)
+                {
+                    SW.WriteLine(compounds);
+                }
+            }
+
 
         }
 
@@ -232,6 +253,15 @@ Once the text file has loaded, copy and paste the resulting data into the file t
             if (!File.Exists(finalOutput))
             {
                 using (StreamWriter sw = new StreamWriter(finalOutput))
+                {
+                    sw.Close();
+                }
+            }
+
+            string parsedOutput = Path.Combine(Directory.GetCurrentDirectory(), "ParsedOutput.txt");
+            if (!File.Exists(parsedOutput))
+            {
+                using (StreamWriter sw = new StreamWriter(parsedOutput))
                 {
                     sw.Close();
                 }
