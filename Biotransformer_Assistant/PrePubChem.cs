@@ -31,29 +31,5 @@ namespace Biotransformer_Assistant
             return Compound;
         }
 
-        /// <summary>
-        /// Seralize that the required files exist
-        /// </summary>
-        public static void SeralizeFiles()
-        {
-            string pubChemOutput = Path.Combine(Directory.GetCurrentDirectory(), "PubChemOutput.txt");
-            string input = Path.Combine(Directory.GetCurrentDirectory(), "input.txt");
-            if (!File.Exists(pubChemOutput))
-            {
-                Log.Error("PubChemOutput.txt does not exist, you must setup the program first!");
-                Log.Error("Press \'Enter\' to exit the program");
-                Console.ReadLine();
-                Environment.Exit(0);
-            }
-
-            if (!File.Exists(input))
-            {
-                Log.Error("input.txt does not exist, you must setup the program first!");
-                Log.Error("Press \'Enter\' to exit the program");
-                Console.ReadLine();
-                Environment.Exit(0);
-            }
-        }
-
     }
 }

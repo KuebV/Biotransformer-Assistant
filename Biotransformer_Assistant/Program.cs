@@ -17,11 +17,12 @@ namespace Biotransformer_Assistant
             Log.WriteLine("[2] Parse skipped compounds 	    (only use if you’ve completed option [1])", ConsoleColor.Cyan);
             Log.WriteLine("[3] Setup Program 		    (please use if this is your first time)", ConsoleColor.Cyan);
             Log.WriteLine("----------------------------------------------------------", ConsoleColor.Blue);
-            Log.Write("Input: ", ConsoleColor.Yellow);
+
             // This is where it all begins, with the Menu
             bool menu = true;
             while (menu)
             {
+                Log.Write("Input: ", ConsoleColor.Yellow);
 
                 // Define the Index Integer, it will attempt to parse the input as an integer, if it is unable to, display error
                 int index;
@@ -31,17 +32,16 @@ namespace Biotransformer_Assistant
                     {
                         case 1:
                             menu = false;
-                            PasteIndivdualCompounds();
-                            break;
-                        case 2:
-                            menu = false;
                             LoadCompounds();
                             break;
+                        case 2:
+                            //menu = false;
+                            //LoadCompounds();
+                            break;
                         case 3:
-                            SetupProgram();
-                            Log.Info("Setup Complete, Press \'Enter\' to Exit the Program");
+                            FileData.SetupProgram();
+                            Log.Info("Setup Complete, Press \'Enter\' to continue");
                             Console.ReadLine();
-                            Environment.Exit(0);
                             break;
                         default:
                             Log.Error("Invalid Input");
@@ -123,10 +123,10 @@ Once the text file has loaded, copy and paste the resulting data into the file t
             Console.ReadLine();
 
             string finalOutput = Path.Combine(Directory.GetCurrentDirectory(), "BioTransformerInput.txt");
-            File.Delete(finalOutput);
+            File.Delete(FileData.BiotransformerInput);
 
             //Format the BioTransformerInput
-            using (StreamWriter sw = new StreamWriter(finalOutput))
+            using (StreamWriter sw = new StreamWriter(FileData.BiotransformerInput))
             {
                 sw.WriteLine("BioTransformer Input:");
                 sw.WriteLine("------------------------------------------------------------------------------------------");
@@ -148,6 +148,20 @@ Once the text file has loaded, copy and paste the resulting data into the file t
                 sw.Close();
             }
 
+            using (StreamWriter sw = new StreamWriter(FileData.SMILES_SpreadsheetKey))
+            {
+                sw.WriteLine("SMILES Key");
+                sw.WriteLine("----------------");
+                foreach (var val in PostPubChem.PubChemSMILES)
+                {
+                    if (val.Key != null)
+                        sw.WriteLine($"{val.Value}");
+                    else
+                        sw.WriteLine("");
+                }
+                sw.Close();
+            }
+
         }
 
         public static List<string> Compounds = new List<string>();
@@ -158,16 +172,17 @@ Once the text file has loaded, copy and paste the resulting data into the file t
 
         public static void LoadCompounds()
         {
-            string localPath = Path.Combine(Directory.GetCurrentDirectory(), "input.txt");
-            if (!File.Exists(localPath))
-            {
-                Log.Error("input.txt does not exist! Are you correctly following the documentation?");
-                return;
-            }
+            Log.Info("\n[1] Please paste unparsed compounds, one per line, into the text document “RawCompounds”\n" +
+                "[2] Press [CONTROL]+S to save, then close the file\n\n" +
+                "When finished, press “Enter” to continue:");
 
-            RawCompoundsFromFile = File.ReadLines(localPath);
+            Console.ReadLine();
+            string RawCompounds = Path.Combine(Directory.GetCurrentDirectory(), FileData.RawCompoundInput);
 
-            Log.Success("Loaded Compounds from input.txt");
+            RawCompoundsFromFile = File.ReadLines(RawCompounds);
+
+
+            Log.Success("Loaded Compounds from " + FileData.RawCompoundInput);
             Log.Info("Parsing Compounds...");
 
             foreach (string rawcompound in RawCompoundsFromFile)
@@ -179,7 +194,7 @@ Once the text file has loaded, copy and paste the resulting data into the file t
                 Console.WriteLine(comp);
 
 
-            string parsedOutput = Path.Combine(Directory.GetCurrentDirectory(), "ParsedOutput.txt");
+            string parsedOutput = Path.Combine(Directory.GetCurrentDirectory(), FileData.PubChemInput);
             File.Delete(parsedOutput);
             using (StreamWriter SW = new StreamWriter(parsedOutput))
             {
@@ -192,83 +207,46 @@ Once the text file has loaded, copy and paste the resulting data into the file t
 
         }
 
-        public static void PasteIndivdualCompounds()
-        {
-            Console.Clear();
-            Log.Info("Paste the Compounds you want converted, when you are done, type \'STOP\'");
+        //public static void PasteIndivdualCompounds()
+        //{
+        //    Console.Clear();
+        //    Log.Info("Paste the Compounds you want converted, when you are done, type \'STOP\'");
 
-            bool inputting = true;
-            while (inputting)
-            {
-                Log.Info("Enter the Compound:\n");
+        //    bool inputting = true;
+        //    while (inputting)
+        //    {
+        //        Log.Info("Enter the Compound:\n");
 
-                string compound = Console.ReadLine();
-                if (compound.Contains("STOP"))
-                    inputting = false;
-                else
-                    Compounds.Add(compound);
-            }
+        //        string compound = Console.ReadLine();
+        //        if (compound.Contains("STOP"))
+        //            inputting = false;
+        //        else
+        //            Compounds.Add(compound);
+        //    }
 
-            Log.Info("Parsing Compound Strings...");
-            foreach (string compound in Compounds)
-                ParsedCompounds.Add(PrePubChem.ParseCompounds(compound));
+        //    Log.Info("Parsing Compound Strings...");
+        //    foreach (string compound in Compounds)
+        //        ParsedCompounds.Add(PrePubChem.ParseCompounds(compound));
 
-            Log.Success("Done!");
-            Log.Info("Here are the parsed compounds:\n\n");
-            foreach (string parsed in ParsedCompounds)
-                Console.WriteLine(parsed);
+        //    Log.Success("Done!");
+        //    Log.Info("Here are the parsed compounds:\n\n");
+        //    foreach (string parsed in ParsedCompounds)
+        //        Console.WriteLine(parsed);
 
-            string parsedOutput = Path.Combine(Directory.GetCurrentDirectory(), "ParsedOutput.txt");
-            File.Delete(parsedOutput);
-            using (StreamWriter SW = new StreamWriter(parsedOutput))
-            {
-                foreach (string compounds in ParsedCompoundsFromFile)
-                {
-                    SW.WriteLine(compounds);
-                }
-            }
+        //    string parsedOutput = Path.Combine(Directory.GetCurrentDirectory(), "ParsedOutput.txt");
+        //    File.Delete(parsedOutput);
+        //    using (StreamWriter SW = new StreamWriter(parsedOutput))
+        //    {
+        //        foreach (string compounds in ParsedCompoundsFromFile)
+        //        {
+        //            SW.WriteLine(compounds);
+        //        }
+        //    }
 
 
-        }
+        //}
 
-        public static void SetupProgram()
-        {
-            string localPath = Path.Combine(Directory.GetCurrentDirectory(), "input.txt");
-            if (!File.Exists(localPath))
-            {
-                using (StreamWriter sw = new StreamWriter(localPath))
-                {
-                    sw.Close();
-                }
-            }
-
-            string pubchemoutput = Path.Combine(Directory.GetCurrentDirectory(), "PubChemOutput.txt");
-            if (!File.Exists(pubchemoutput))
-            {
-                using (StreamWriter sw = new StreamWriter(pubchemoutput))
-                {
-                    sw.Close();
-                }
-            }
-
-            string finalOutput = Path.Combine(Directory.GetCurrentDirectory(), "BioTransformerInput.txt");
-            if (!File.Exists(finalOutput))
-            {
-                using (StreamWriter sw = new StreamWriter(finalOutput))
-                {
-                    sw.Close();
-                }
-            }
-
-            string parsedOutput = Path.Combine(Directory.GetCurrentDirectory(), "ParsedOutput.txt");
-            if (!File.Exists(parsedOutput))
-            {
-                using (StreamWriter sw = new StreamWriter(parsedOutput))
-                {
-                    sw.Close();
-                }
-            }
-        }
+        
 
     }
 }
