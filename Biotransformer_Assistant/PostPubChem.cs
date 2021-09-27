@@ -28,7 +28,7 @@ namespace Biotransformer_Assistant
 
         public static void LoadChemFile()
         {
-            string localPath = Path.Combine(Directory.GetCurrentDirectory(), "PubChemOutput.txt");
+            string localPath = Path.Combine(Directory.GetCurrentDirectory(), FileData.CompoundSMILES);
             PubChemOutputFile = File.ReadAllLines(localPath);
 
             int line = 0;

@@ -10,6 +10,8 @@ namespace Biotransformer_Assistant
         public static string OutputDirectory = Path.Combine(Directory.GetCurrentDirectory(), "Output");
         public static string BiotransformerInput = Path.Combine(OutputDirectory, "Biotransformer_Input.txt");
         public static string SMILES_SpreadsheetKey = Path.Combine(OutputDirectory, "SMILES_SpreadsheetKey.txt");
+        public static string PubChemCompounds = Path.Combine(OutputDirectory, "PubChemCompounds.txt");
+        public static string SkippedSMILES = Path.Combine(OutputDirectory, "Skipped_Compounds.txt");
 
         public static string RawCompoundInput = "RawCompounds.txt";
 
@@ -38,6 +40,16 @@ namespace Biotransformer_Assistant
             string RawCompound = Path.Combine(Directory.GetCurrentDirectory(), RawCompoundInput);
             if (!File.Exists(RawCompound))
                 using (StreamWriter sw = new StreamWriter(RawCompound))
+                    sw.Close();
+
+            string pcc = Path.Combine(Directory.GetCurrentDirectory(), PubChemCompounds);
+            if (!File.Exists(pcc))
+                using (StreamWriter sw = new StreamWriter(pcc))
+                    sw.Close();
+
+            string skippedCompounds = Path.Combine(Directory.GetCurrentDirectory(), SkippedSMILES);
+            if (!File.Exists(skippedCompounds))
+                using (StreamWriter sw = new StreamWriter(skippedCompounds))
                     sw.Close();
         }
     }
