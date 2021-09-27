@@ -26,6 +26,19 @@ namespace Biotransformer_Assistant
             return result;
         }
 
+        public static int ChemFileSize()
+        {
+            string localPath = Path.Combine(Directory.GetCurrentDirectory(), FileData.CompoundSMILES);
+            PubChemOutputFile = File.ReadAllLines(localPath);
+            int line = 0;
+            foreach (string chem in PubChemOutputFile)
+            {
+                line++;
+            }
+
+            return line;
+        }
+
         public static void LoadChemFile()
         {
             string localPath = Path.Combine(Directory.GetCurrentDirectory(), FileData.CompoundSMILES);

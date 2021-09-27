@@ -41,6 +41,13 @@ namespace Biotransformer_Assistant
             Console.ForegroundColor = ConsoleColor.White;
         }
 
+        public static void List(int itemList, dynamic item)
+        {
+            Write($"\n[{itemList}]: ", ConsoleColor.Blue);
+            Console.Write(item);
+            Console.ForegroundColor = ConsoleColor.White;
+        }
+
         public static void WriteLine(string text, ConsoleColor? TextColor = null, bool stayColored = false)
         {
             if (text == null) return;

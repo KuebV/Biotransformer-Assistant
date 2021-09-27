@@ -14,6 +14,12 @@ namespace Biotransformer_Assistant
             Console.ReadLine();
             Environment.Exit(0);
         }
+        /// <summary>
+        /// Dear whoever decides to read this, and wonder to themselves why this 80% of this program is located in the Main Method
+        /// I dont know, I'm quite lazy, and this works perfectly fine
+        /// Sure it might not look the best, but it does its job
+        /// </summary>
+        /// <param name="args"></param>
         static void Main(string[] args)
         {
             Log.WriteLine("BioTransformer-Assistant", ConsoleColor.Cyan);
@@ -61,21 +67,34 @@ namespace Biotransformer_Assistant
             Console.Clear();
 
             Log.Info("Instructions for next section :\n");
-            Log.WriteLine("[1] Go to “PubChem Identifier Exchange Service” in any web browser\n" +
+            Log.List(1 ,"Go to “PubChem Identifier Exchange Service” in any web browser\n" +
                             "\tAvailable at: https://pubchem.ncbi.nlm.nih.gov/idexchange/idexchange.cgi");
-            Log.WriteLine("[2] Set “Input ID List” to “Synonyms”");
-            Log.WriteLine("[3] Select “Choose File“ and select the file in the Output Folder, labeled “PubChemCompounds“");
-            Log.WriteLine("[4] Set “Operator Type” to “Same CID”");
-            Log.WriteLine("[5] Set the Output IDs to “SMILES“");
-            Log.WriteLine("[6] Set “Output Method” to “Two column file showing each input-output correspondence”");
-            Log.WriteLine("[7] Set “Compression” to “No Compression”");
-            Log.WriteLine("[8] Press “Submit Job” at the bottom left");
-            Log.WriteLine("[9] It may take a few moments for PubChem to process the data. Once the text has loaded, copy and paste this output into the file called “Compound_SMILES“. Save and close the file");
-            Log.Warning("PubChem may not be able to convert every compound into a SMILES format.  As such, those compounds will be skipped in future output and will have to be done manually.");
+            Log.List(2, "Set “Input ID List” to “Synonyms”");
+            Log.List(3, "Select “Choose File“ and select the file in the Output Folder, labeled “PubChemCompounds“");
+            Log.List(4, "Set “Operator Type” to “Same CID”");
+            Log.List(5, "Set the Output IDs to “SMILES“");
+            Log.List(6, "Set “Output Method” to “Two column file showing each input-output correspondence”");
+            Log.List(7, "Set “Compression” to “No Compression”");
+            Log.List(8, "Press “Submit Job” at the bottom left");
+            Log.List(9, "It may take a few moments for PubChem to process the data. \n\tOnce the text has loaded, copy and paste this output into the file called “Compound_SMILES“. Save and close the file");
+            Log.Warning("PubChem may not be able to convert every compound into a SMILES format. As such, those compounds will be skipped in future output and will have to be done manually.");
 
             Log.Info("When you have pasted the data into the PubChemOutput File, Press \'Enter\' to start the parsing process");
             Console.ReadLine();
             Log.Warning("This may take several seconds, please be patient!");
+
+            bool fileSizeCorrect = false;
+            while (!fileSizeCorrect)
+            {
+                if (PostPubChem.ChemFileSize() <= 1)
+                {
+                    Log.Error("There is no compounds in “Compound_SMILES“\nPress “ENTER“ when there are compounds");
+                    Console.ReadLine();
+                }
+                else
+                    fileSizeCorrect = true;
+            }
+
 
             PostPubChem.LoadChemFile();
 
@@ -107,8 +126,6 @@ namespace Biotransformer_Assistant
 
             Console.Clear();
 
-            // Logic Almighty
-            // I don't care to explain how this all works, but the point being, it works, and it works well
             List<string> BioTransformerCMDS = new List<string>();
 
             List<string> SkippedSMILES = new List<string>();
