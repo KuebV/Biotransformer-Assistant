@@ -61,6 +61,22 @@ Either way, most of the steps are the same
 4. It will immediately parse all the data inside the file, and give it back to you 
 5+. All Steps beyond this are exactly the same as Option 1
 
+## File Structure
+```
+- Biotransformer_Assistant.deps
+- Biotransformer_Assistant.dll
+- Biotransformer_Assistant.exe
+- Biotransformer_Assistant.pdb
+- Biotransformer_Assistant.runtimeconfig.dev
+- Biotransformer_Assistant.runtimeconfig
+- Compound_SMILES.txt
+- RawCompounds.txt
+- Output
+      - Biotransformer_Input.txt
+      - PubChemCompounds.txt
+      - SMILES.SpreadsheetKey.txt
+```
+
 ## Errors & Troubleshooting
 **Errors**
 
