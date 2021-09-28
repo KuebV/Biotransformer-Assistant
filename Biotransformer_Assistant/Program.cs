@@ -16,18 +16,17 @@ namespace Biotransformer_Assistant
         {
             Menu.StartMenu();
 
-            Log.WriteLine("---------------------------------------------------------------------------------------------------", ConsoleColor.Blue);
-            Log.Warning("All data stored in the files “BioTransformer_Input” and “SMILES_SpreadsheetKey” will be overwritten.");
-            Log.Info("Press “Enter” to continue");
-            Console.ReadLine();
-
             Console.Clear();
-
+            Log.WriteLine("---------------------------------------------------------------------------------------------------", ConsoleColor.Blue);
             Log.Success("Done!");
+            Log.Info("Data processing successful! You have three new data sets available:");
+            Log.WriteLine("\n__________________________________________________________________", ConsoleColor.Blue);
+            Log.List(1, "BioTransformer Input");
+            Log.WriteLine("- The file “BioTransformer_Input” now contains the proper BioTransformer input, which can be directly copied/pasted into the program.");
+            Log.List(2, "SMILES Spreadsheet Key");
+            Log.WriteLine("- The file “SMILEs_SpreadsheetKey” now contains the SMILEs format for each compound, which can be directly copied/pasted into a spreadsheet.");
 
-            Log.Info("\n\nProcess Completed. Press \'Enter\' to create a Biotransformer Input & Key File (This will overwrite any existing file)");
             Console.ReadLine();
         }
-
     }
 }

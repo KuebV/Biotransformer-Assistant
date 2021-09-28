@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Text;
+using System.Threading;
 
 namespace Biotransformer_Assistant
 {
@@ -17,6 +19,15 @@ namespace Biotransformer_Assistant
             Log.WriteLine("[1] Load compounds from file	    (primary use)", ConsoleColor.Cyan);
             Log.WriteLine("[2] Parse skipped compounds 	    (only use if you’ve completed option [1])", ConsoleColor.Cyan);
             Log.WriteLine("[3] Setup Program 		    (please use if this is your first time)", ConsoleColor.Cyan);
+
+            Config config = new Config();
+
+            if (config.ConfigFileLength >= 1)
+            {
+                Log.WriteLine("[4] Configuration                   (Configure the Settings for BTA)", ConsoleColor.Cyan);
+                config.LoadConfig();
+            }
+
             Log.WriteLine("----------------------------------------------------------", ConsoleColor.Blue);
 
             bool atStartMenu = true;
@@ -42,6 +53,9 @@ namespace Biotransformer_Assistant
                             FileData.SetupProgram();
                             Log.Info("Setup Complete, Press \'Enter\' to continue");
                             Console.ReadLine();
+                            break;
+                        case 4:
+                            Settings();
                             break;
                         default:
                             Log.Error("Invalid Input");
@@ -108,6 +122,60 @@ namespace Biotransformer_Assistant
         public static List<string> BioTransformerCMDS = new List<string>();
         public static List<string> SkippedSMILES = new List<string>();
 
+        public static void Settings()
+        {
+            Console.Clear();
+            Log.WriteLine("Settings for Biotransformer-Assistant", ConsoleColor.Red);
+            Log.WriteLine("To Change a setting, input the number :");
+
+            Config cfg = new Config();
+            bool openFilesResult = cfg.OpenFiles;
+
+            Log.WriteLine(string.Empty);
+            Log.Debug(openFilesResult.ToString());
+
+            Log.Write("[1] ", ConsoleColor.Red);
+            if (openFilesResult)
+                Log.Write("[Enabled]", ConsoleColor.Green);
+            else if (!openFilesResult)
+                Log.Write("[Disabled]", ConsoleColor.Red);
+
+            Log.Write(" Open Files when needed", ConsoleColor.White);
+
+            Log.WriteLine("\n");
+            Log.Write("Input: ", ConsoleColor.Yellow);
+            int selection;
+            string parseData = Console.ReadLine();
+            if (int.TryParse(parseData, out selection))
+            {
+                switch (selection)
+                {
+                    case 1:
+                        if (openFilesResult)
+                            cfg.ModifyingOpenFile(false);
+                        else
+                            cfg.ModifyingOpenFile(true);
+                        Log.Success("Modified Open File Setting!");
+                        break;
+                    default:
+                        Log.Error("There is no selection with that number!");
+                        break;
+                }
+
+                cfg.LoadConfig();
+                Settings();
+                Thread.Sleep(1000);
+            }
+            else if (parseData.Contains("exit"))
+            {
+                Console.Clear();
+                StartMenu();
+            }
+            else
+                Settings();
+
+        }
+
         public static void GenerateBiotransformerStringData(string listName, string fileType, string metabolismType)
         {
             int i = 0;
@@ -136,7 +204,7 @@ namespace Biotransformer_Assistant
         {
             Log.Info("Instructions for next section :\n");
             Log.List(1, "Go to “PubChem Identifier Exchange Service” in any web browser\n" +
-                            "\tAvailable at: https://pubchem.ncbi.nlm.nih.gov/idexchange/idexchange.cgi");
+                            "\tAvailable at: https://pubchem.ncbi.nlm.nih.gov/idexchange/idexchange.cgi\n");
             Log.List(2, "Set “Input ID List” to “Synonyms”");
             Log.List(3, "Select “Choose File“ and select the file in the Output Folder, labeled “PubChemCompounds“");
             Log.List(4, "Set “Operator Type” to “Same CID”");
@@ -163,8 +231,10 @@ namespace Biotransformer_Assistant
                     fileSizeCorrect = true;
             }
 
-
             PostPubChem.LoadChemFile();
+
+            Log.Success("Done! Press “ENTER“ to continue");
+            Console.ReadLine();
             PromptBiotransformerInput();
         }
 

@@ -18,6 +18,8 @@ namespace Biotransformer_Assistant
 
         public static string CompoundSMILES = "Compounds_SMILES.txt";
 
+        public static string ConfigFile = "Config.json";
+
         public static void SetupProgram()
         {
             if (!Directory.Exists(OutputDirectory))
@@ -56,6 +58,11 @@ namespace Biotransformer_Assistant
             string skippedSMILES = Path.Combine(Directory.GetCurrentDirectory(), SkippedSMILES_BiotransformerInput);
             if (!File.Exists(skippedSMILES))
                 using (StreamWriter sw = new StreamWriter(skippedSMILES))
+                    sw.Close();
+
+            string config = Path.Combine(Directory.GetCurrentDirectory(), ConfigFile);
+            if (!File.Exists(config))
+                using (StreamWriter sw = new StreamWriter(config))
                     sw.Close();
         }
     }
