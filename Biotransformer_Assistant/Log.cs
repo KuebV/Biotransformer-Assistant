@@ -23,6 +23,7 @@ namespace Biotransformer_Assistant
         public static void Debug(string Message)
         {
             Config cfg = new Config();
+            cfg.ReloadConfig();
             if (cfg.DebugLog)
             {
                 Write("\n[Debug]: ", ConsoleColor.Blue);

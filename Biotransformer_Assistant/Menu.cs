@@ -134,14 +134,14 @@ namespace Biotransformer_Assistant
                 cfg.ReloadConfig();
                 Log.WriteLine("Biotransformer-Assistant Settings", ConsoleColor.Red);
                 Log.WriteLine("To change the value of a setting, type its associated number. To return back, do \"exit\"\n", ConsoleColor.Yellow);
-                //Log.WriteLine("[1] Open Associated File", ConsoleColor.Blue);
+                Log.WriteLine("[1] Open Associated File", ConsoleColor.Blue);
 
-                //if (cfg.OpenFiles)
-                //    Log.WriteLine("\t[Enabled]", ConsoleColor.Green);
-                //else
-                //    Log.WriteLine("\t[Disabled]", ConsoleColor.Red);
+                if (cfg.OpenFiles)
+                    Log.WriteLine("\t[Enabled]", ConsoleColor.Green);
+                else
+                    Log.WriteLine("\t[Disabled]", ConsoleColor.Red);
 
-                Log.WriteLine("\n[1] Debug Log", ConsoleColor.Blue);
+                Log.WriteLine("\n[2] Debug Log", ConsoleColor.Blue);
                 if (cfg.DebugLog)
                     Log.WriteLine("\t[Enabled]", ConsoleColor.Green);
                 else
@@ -153,17 +153,18 @@ namespace Biotransformer_Assistant
                 {
                     switch (selection)
                     {
-                        //case 1:
-                        //    if (cfg.OpenFiles)
-                        //        cfg.ModifyingOpenFile(false);
-                        //    else if (!cfg.OpenFiles)
-                        //        cfg.ModifyingOpenFile(true);
-                        //    break;
                         case 1:
+                            if (cfg.OpenFiles)
+                                cfg.ModifyingOpenFile(false);
+                            else if (!cfg.OpenFiles)
+                                cfg.ModifyingOpenFile(true);
+                            break;
+                        case 2:
                             if (cfg.DebugLog)
                                 cfg.ModifyDebugLog(false);
                             else if (!cfg.DebugLog)
                                 cfg.ModifyDebugLog(true);
+                            Log.Debug("Modifying Debug Log Setting...");
                             break;
                         default:
                             Log.Error("Invalid Selection");
@@ -250,10 +251,16 @@ namespace Biotransformer_Assistant
         public static void LoadCompounds()
         {
             Config cfg = new Config();
+            cfg.ReloadConfig();
+
             Log.Info("\n[1] Please paste unparsed compounds, one per line, into the text document “RawCompounds”\n" +
                 "[2] Press [CONTROL]+S to save, then close the file\n\n" +
                 "When finished, press “Enter” to continue:");
 
+            Log.Debug(cfg.OpenFiles.ToString());
+
+            if (cfg.OpenFiles)
+                Process.Start("notepad.exe", Path.Combine(Directory.GetCurrentDirectory(), FileData.RawCompoundInput));
 
             Console.ReadLine();
             string RawCompounds = Path.Combine(Directory.GetCurrentDirectory(), FileData.RawCompoundInput);
