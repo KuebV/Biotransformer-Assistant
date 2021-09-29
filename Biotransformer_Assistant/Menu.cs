@@ -25,7 +25,6 @@ namespace Biotransformer_Assistant
             if (config.ConfigFileLength >= 1)
             {
                 Log.WriteLine("[4] Configuration                   (Configure the Settings for BTA)", ConsoleColor.Cyan);
-                config.LoadConfig();
             }
 
             Log.WriteLine("----------------------------------------------------------", ConsoleColor.Blue);
@@ -53,6 +52,8 @@ namespace Biotransformer_Assistant
                             FileData.SetupProgram();
                             Log.Info("Setup Complete, Press \'Enter\' to continue");
                             Console.ReadLine();
+                            Console.Clear();
+                            StartMenu();
                             break;
                         case 4:
                             Settings();
@@ -113,7 +114,7 @@ namespace Biotransformer_Assistant
                 {
                     string name = ($"{listName}" + ".cmpnd" + info.Key + "." + fileType);
                     string bio = "java -jar \"biotransformer-1.1.5 (1).jar\" -k pred -b " + metabolismType + " -ismi \"" + info.Value + "\" -o" + fileType + " " + name + " -s 1";
-                    sw.Write(bio);
+                    sw.WriteLine(bio);
                 }
                 
             }
@@ -124,55 +125,63 @@ namespace Biotransformer_Assistant
 
         public static void Settings()
         {
-            Console.Clear();
-            Log.WriteLine("Settings for Biotransformer-Assistant", ConsoleColor.Red);
-            Log.WriteLine("To Change a setting, input the number :");
-
+            bool looping = true;
             Config cfg = new Config();
-            bool openFilesResult = cfg.OpenFiles;
-
-            Log.WriteLine(string.Empty);
-            Log.Debug(openFilesResult.ToString());
-
-            Log.Write("[1] ", ConsoleColor.Red);
-            if (openFilesResult)
-                Log.Write("[Enabled]", ConsoleColor.Green);
-            else if (!openFilesResult)
-                Log.Write("[Disabled]", ConsoleColor.Red);
-
-            Log.Write(" Open Files when needed", ConsoleColor.White);
-
-            Log.WriteLine("\n");
-            Log.Write("Input: ", ConsoleColor.Yellow);
-            int selection;
-            string parseData = Console.ReadLine();
-            if (int.TryParse(parseData, out selection))
-            {
-                switch (selection)
-                {
-                    case 1:
-                        if (openFilesResult)
-                            cfg.ModifyingOpenFile(false);
-                        else
-                            cfg.ModifyingOpenFile(true);
-                        Log.Success("Modified Open File Setting!");
-                        break;
-                    default:
-                        Log.Error("There is no selection with that number!");
-                        break;
-                }
-
-                cfg.LoadConfig();
-                Settings();
-                Thread.Sleep(1000);
-            }
-            else if (parseData.Contains("exit"))
+            while (looping)
             {
                 Console.Clear();
-                StartMenu();
+
+                cfg.ReloadConfig();
+                Log.WriteLine("Biotransformer-Assistant Settings", ConsoleColor.Red);
+                Log.WriteLine("To change the value of a setting, type its associated number. To return back, do \"exit\"\n", ConsoleColor.Yellow);
+                //Log.WriteLine("[1] Open Associated File", ConsoleColor.Blue);
+
+                //if (cfg.OpenFiles)
+                //    Log.WriteLine("\t[Enabled]", ConsoleColor.Green);
+                //else
+                //    Log.WriteLine("\t[Disabled]", ConsoleColor.Red);
+
+                Log.WriteLine("\n[1] Debug Log", ConsoleColor.Blue);
+                if (cfg.DebugLog)
+                    Log.WriteLine("\t[Enabled]", ConsoleColor.Green);
+                else
+                    Log.WriteLine("\t[Disabled]", ConsoleColor.Red);
+
+                int selection;
+                string strSelection = Console.ReadLine();
+                if (int.TryParse(strSelection, out selection))
+                {
+                    switch (selection)
+                    {
+                        //case 1:
+                        //    if (cfg.OpenFiles)
+                        //        cfg.ModifyingOpenFile(false);
+                        //    else if (!cfg.OpenFiles)
+                        //        cfg.ModifyingOpenFile(true);
+                        //    break;
+                        case 1:
+                            if (cfg.DebugLog)
+                                cfg.ModifyDebugLog(false);
+                            else if (!cfg.DebugLog)
+                                cfg.ModifyDebugLog(true);
+                            break;
+                        default:
+                            Log.Error("Invalid Selection");
+                            Thread.Sleep(2000);
+                            break;
+
+                    }
+                }
+                else if (strSelection.Contains("exit"))
+                {
+                    Console.Clear();
+                    StartMenu();
+                    looping = false;
+                }
+                
+
+
             }
-            else
-                Settings();
 
         }
 
@@ -240,9 +249,11 @@ namespace Biotransformer_Assistant
 
         public static void LoadCompounds()
         {
+            Config cfg = new Config();
             Log.Info("\n[1] Please paste unparsed compounds, one per line, into the text document “RawCompounds”\n" +
                 "[2] Press [CONTROL]+S to save, then close the file\n\n" +
                 "When finished, press “Enter” to continue:");
+
 
             Console.ReadLine();
             string RawCompounds = Path.Combine(Directory.GetCurrentDirectory(), FileData.RawCompoundInput);

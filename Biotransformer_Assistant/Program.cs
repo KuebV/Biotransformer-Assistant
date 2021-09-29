@@ -14,6 +14,7 @@ namespace Biotransformer_Assistant
         /// <param name="args"></param>
         static void Main(string[] args)
         {
+            Log.Debug("Starting Process...");
             Menu.StartMenu();
 
             Console.Clear();

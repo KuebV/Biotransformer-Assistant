@@ -62,8 +62,12 @@ namespace Biotransformer_Assistant
 
             string config = Path.Combine(Directory.GetCurrentDirectory(), ConfigFile);
             if (!File.Exists(config))
+            {
                 using (StreamWriter sw = new StreamWriter(config))
                     sw.Close();
+                Config cfg = new Config();
+                cfg.LoadConfig();
+            }
         }
     }
 }

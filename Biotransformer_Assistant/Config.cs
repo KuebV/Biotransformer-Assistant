@@ -36,31 +36,51 @@ namespace Biotransformer_Assistant
             }
         }
 
+        public void ReloadConfig()
+        {
+            string loadFile = File.ReadAllText(FileData.ConfigFile);
+            ConfigSettings seralize = JsonSerializer.Deserialize<ConfigSettings>(loadFile);
+
+            OpenFiles = seralize.OpenFilesWhenPrompted;
+            DebugLog = seralize.DebugLog;
+        }
+
         public void ModifyingOpenFile(bool Value)
         {
             File.Delete(FileData.ConfigFile);
 
             string jsonData = string.Empty;
-            if (Value)
+            bool debug = DebugLog;
+            ConfigSettings settings = new ConfigSettings
             {
-                ConfigSettings settings = new ConfigSettings
-                {
-                    OpenFilesWhenPrompted = true
-                };
+                OpenFilesWhenPrompted = Value,
+                DebugLog = debug
+            };
 
-                jsonData = JsonSerializer.Serialize(settings);
-                OpenFiles = true;
-            }
-            else
+            jsonData = JsonSerializer.Serialize(settings);
+            OpenFiles = Value;
+
+            using (StreamWriter sw = new StreamWriter(FileData.ConfigFile))
             {
-                ConfigSettings settings = new ConfigSettings
-                {
-                    OpenFilesWhenPrompted = false
-                };
-
-                jsonData = JsonSerializer.Serialize(settings);
-                OpenFiles = false;
+                sw.Write(jsonData);
+                sw.Close();
             }
+        }
+
+        public void ModifyDebugLog(bool Value)
+        {
+            File.Delete(FileData.ConfigFile);
+
+            string jsonData = string.Empty;
+            bool openfile = OpenFiles;
+            ConfigSettings settings = new ConfigSettings
+            {
+                OpenFilesWhenPrompted = openfile,
+                DebugLog = Value
+            };
+
+            jsonData = JsonSerializer.Serialize(settings);
+            DebugLog = Value;
 
             using (StreamWriter sw = new StreamWriter(FileData.ConfigFile))
             {
@@ -72,11 +92,13 @@ namespace Biotransformer_Assistant
         
 
         public bool OpenFiles;
+        public bool DebugLog;
         public int ConfigFileLength;
     }
 
     public class ConfigSettings
     {
         public bool OpenFilesWhenPrompted { get; set; }
+        public bool DebugLog { get; set; }
     }
 }

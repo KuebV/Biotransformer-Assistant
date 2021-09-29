@@ -22,9 +22,13 @@ namespace Biotransformer_Assistant
 
         public static void Debug(string Message)
         {
-            Write("\n[Debug]: ", ConsoleColor.Blue);
-            Console.Write(Message);
-            Console.ForegroundColor = ConsoleColor.White;
+            Config cfg = new Config();
+            if (cfg.DebugLog)
+            {
+                Write("\n[Debug]: ", ConsoleColor.Blue);
+                Console.Write(Message);
+                Console.ForegroundColor = ConsoleColor.White;
+            }
         }
 
         public static void Error(string Message)

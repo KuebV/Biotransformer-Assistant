@@ -98,6 +98,7 @@ namespace Biotransformer_Assistant
                 case 0:
                 case 1:
                     PubChemSMILES.Add(possibleSmiles, null);
+                    Log.Debug("Adding " + possibleSmiles + " to Skipped_Compounds");
                     break;
 
                 // If there is 2 words found in the line, the previous method is viable, but first we have to test for things that are unlikely, but may happen
