@@ -24,6 +24,34 @@ This can be done by selecting the first option, "Load compounds from file"
 6. When it has completed parsing the Compounds, navigate to the Output Folder in the Biotransformer_Assistant folder.
 7. Find **PubChemCompounds.txt**, and in there will be the parsed compounds ready to be put into PubChem
 
+### PubChem
+1. Go [here](https://pubchem.ncbi.nlm.nih.gov/idexchange/idexchange.cgi) for the link to PubChem
+2. For Input ID's, select the option 'Synonyms',
+3. Click 'Choose File' and locate the **PubChemCompounds.txt** that was just created in the last step
+4. Change Output ID's to 'SMILES'
+5. Change the compression to 'No Compression'
+6. Click Submit Job, and wait a few seconds
+
+### PubChem to Biotransformer
+1. Copy the compounds and smiles from the page on the last step,
+2. Paste them into **Compounds_SMILES.txt** and Save
+3. In Biotransformer_Assistant, move onto the step detailing the instructions for PubChem, it may not work if its empty
+4. Press ENTER, Biotransformer_Assistant should output something on the lines of:
+```
+[Warning]: This may take several seconds, please be patient!
+[Info]: PubChemOutput has: 120 possible compounds
+[√]: Done! Press "ENTER" to continue
+```
+5. From there, you will be taken to the Biotransformer Arguments, input what is needed, it may look something like this:
+```
+[Info]: Enter metabolism type (default: allHuman) : allHuman
+
+[Info]: Enter file type (default: csv) : csv
+
+[Info]: Enter list name (default: list1) : list1
+```
+6. After you press enter, you are done! Everything will be sent to the Output Folder, and you will be set
+
 ## File Structure
 ```
 - Biotransformer_Assistant.deps
