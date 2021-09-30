@@ -89,6 +89,9 @@ This can be done by selecting the first option, "Load compounds from file"
       - SMILES.SpreadsheetKey.txt
 ```
 
+## Known Bug
+When entering settings, then exiting, then completeting steps 1 or 2, the program will get hung
+
 ## Errors & Troubleshooting
 **Errors**
 
