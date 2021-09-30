@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Text;
 
 namespace Biotransformer_Assistant
@@ -22,14 +23,18 @@ namespace Biotransformer_Assistant
 
         public static void Debug(string Message)
         {
-            Config cfg = new Config();
-            cfg.ReloadConfig();
-            if (cfg.DebugLog)
+            if (File.Exists(FileData.ConfigFile))
             {
-                Write("\n[Debug]: ", ConsoleColor.Blue);
-                Console.Write(Message);
-                Console.ForegroundColor = ConsoleColor.White;
+                Config cfg = new Config();
+                cfg.ReloadConfig();
+                if (cfg.DebugLog)
+                {
+                    Write("\n[Debug]: ", ConsoleColor.Blue);
+                    Console.Write(Message);
+                    Console.ForegroundColor = ConsoleColor.White;
+                }
             }
+            
         }
 
         public static void Error(string Message)

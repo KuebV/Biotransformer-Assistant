@@ -24,7 +24,7 @@ namespace Biotransformer_Assistant
         /// </summary>
         public static string CompoundSMILES = "Compounds_SMILES.txt";
 
-        public static string ConfigFile = "Config.json";
+        public static string ConfigFile = "Biotransformer_Assistant_Config.json";
 
         public static void SetupProgram()
         {
