@@ -52,6 +52,27 @@ This can be done by selecting the first option, "Load compounds from file"
 ```
 6. After you press enter, you are done! Everything will be sent to the Output Folder, and you will be set
 
+## Parsing Skipped Compounds
+**This section requires that you have completed Option 1 previously**
+1. Navigate to **Output/Skipped_Compounds.txt**, it may look like this:
+```
+[4] PC(34:1)* (4)
+[23] TG(20:5(5Z,8Z,11Z,14Z,17Z)/18:2(9Z,12Z)/22:5(7Z,10Z,13Z,16Z,19Z))[iso6] (23)
+[24] TG(22:5(7Z,10Z,13Z,16Z,19Z)/16:0/22:5(7Z,10Z,13Z,16Z,19Z))[iso3] (24)
+```
+2. Once you figure out the SMILES compound, at the end of the line, place `|||` and then the SMILES
+3. If done correctly, it should look like this as an example:
+```
+[4] PC(34:1)* (4) ||| smiles4
+[23] TG(20:5(5Z,8Z,11Z,14Z,17Z)/18:2(9Z,12Z)/22:5(7Z,10Z,13Z,16Z,19Z))[iso6] (23) ||| smiles23
+[24] TG(22:5(7Z,10Z,13Z,16Z,19Z)/16:0/22:5(7Z,10Z,13Z,16Z,19Z))[iso3] (24) ||| smiles24
+```
+4. Save and Exit the File
+5. Go back to Biotransformer_Assistant, and select option 2 if you haven't already
+6. You will be prompted to choose the arguments for Biotransformer
+7. After you complete that, you're done! 
+8. The Output will be located in **Output/SkippedSMILES_BiotransformerInput.txt**
+
 ## File Structure
 ```
 - Biotransformer_Assistant.deps
