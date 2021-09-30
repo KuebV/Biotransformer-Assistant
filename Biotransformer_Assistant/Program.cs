@@ -6,12 +6,7 @@ namespace Biotransformer_Assistant
 {
     class Program
     {
-        /// <summary>
-        /// Dear whoever decides to read this, and wonder to themselves why this 80% of this program is located in the Main Method
-        /// I dont know, I'm quite lazy, and this works perfectly fine
-        /// Sure it might not look the best, but it does its job
-        /// </summary>
-        /// <param name="args"></param>
+        public static string ProgramVersion = "1.2.2";
         static void Main(string[] args)
         {
             Log.Debug("Starting Process...");

@@ -14,8 +14,14 @@ namespace Biotransformer_Assistant
         public static string SkippedSMILES = Path.Combine(OutputDirectory, "Skipped_Compounds.txt");
         public static string SkippedSMILES_BiotransformerInput = Path.Combine(OutputDirectory, "SkippedSMILES_BiotransformerInput.txt");
 
+        /// <summary>
+        /// Located in Main Directory
+        /// </summary>
         public static string RawCompoundInput = "RawCompounds.txt";
-
+        
+        /// <summary>
+        /// Located in Main Directory
+        /// </summary>
         public static string CompoundSMILES = "Compounds_SMILES.txt";
 
         public static string ConfigFile = "Config.json";

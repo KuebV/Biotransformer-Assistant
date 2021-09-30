@@ -41,12 +41,12 @@ namespace Biotransformer_Assistant
                     switch (index)
                     {
                         case 1:
-                            LoadCompounds();
                             atStartMenu = false;
+                            LoadCompounds();
                             break;
                         case 2:
-                            ParseSkippedCompounds();
                             atStartMenu = false;
+                            ParseSkippedCompounds();
                             break;
                         case 3:
                             FileData.SetupProgram();
@@ -132,7 +132,7 @@ namespace Biotransformer_Assistant
                 Console.Clear();
 
                 cfg.ReloadConfig();
-                Log.WriteLine("Biotransformer-Assistant Settings", ConsoleColor.Red);
+                Log.WriteLine("Biotransformer-Assistant Settings | Version : " + Program.ProgramVersion , ConsoleColor.Red);
                 Log.WriteLine("To change the value of a setting, type its associated number. To return back, do \"exit\"\n", ConsoleColor.Yellow);
                 Log.WriteLine("[1] Open Associated File", ConsoleColor.Blue);
 
@@ -212,6 +212,7 @@ namespace Biotransformer_Assistant
         
         public static void PubChemParsingSMILES()
         {
+            Config cfg = new Config();
             Log.Info("Instructions for next section :\n");
             Log.List(1, "Go to “PubChem Identifier Exchange Service” in any web browser\n" +
                             "\tAvailable at: https://pubchem.ncbi.nlm.nih.gov/idexchange/idexchange.cgi\n");
@@ -226,6 +227,11 @@ namespace Biotransformer_Assistant
             Log.Warning("PubChem may not be able to convert every compound into a SMILES format. As such, those compounds will be skipped in future output and will have to be done manually.");
 
             Log.Info("When you have pasted the data into the PubChemOutput File, Press \'Enter\' to start the parsing process");
+
+            Log.Debug("Checking Config File");
+            if (cfg.OpenFiles)
+                Process.Start("notepad.exe", Path.Combine(Directory.GetCurrentDirectory(), FileData.CompoundSMILES));
+
             Console.ReadLine();
             Log.Warning("This may take several seconds, please be patient!");
 
