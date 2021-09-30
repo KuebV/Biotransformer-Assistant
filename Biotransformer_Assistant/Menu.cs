@@ -56,6 +56,7 @@ namespace Biotransformer_Assistant
                             StartMenu();
                             break;
                         case 4:
+                            atStartMenu = false;
                             Settings();
                             break;
                         default:
@@ -116,7 +117,6 @@ namespace Biotransformer_Assistant
                     string bio = "java -jar \"biotransformer-1.1.5 (1).jar\" -k pred -b " + metabolismType + " -ismi \"" + info.Value + "\" -o" + fileType + " " + name + " -s 1";
                     sw.WriteLine(bio);
                 }
-                
             }
         }
 
