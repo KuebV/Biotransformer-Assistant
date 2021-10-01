@@ -118,6 +118,8 @@ namespace Biotransformer_Assistant
                     sw.WriteLine(bio);
                 }
             }
+
+            Program.End();
         }
 
         public static List<string> BioTransformerCMDS = new List<string>();
@@ -362,6 +364,8 @@ namespace Biotransformer_Assistant
                 }
                 sw.Close();
             }
+
+            Program.End();
         }
 
         private static void Exit(string exitMessage)
