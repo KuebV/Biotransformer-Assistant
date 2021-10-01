@@ -119,7 +119,7 @@ namespace Biotransformer_Assistant
                 }
             }
 
-            Program.End();
+            Program.Exit();
         }
 
         public static List<string> BioTransformerCMDS = new List<string>();
@@ -148,6 +148,8 @@ namespace Biotransformer_Assistant
                     Log.WriteLine("\t[Enabled]", ConsoleColor.Green);
                 else
                     Log.WriteLine("\t[Disabled]", ConsoleColor.Red);
+
+                Log.WriteLine("\n[3] Apply Translation Data", ConsoleColor.Blue);
 
                 int selection;
                 string strSelection = Console.ReadLine();
@@ -268,12 +270,12 @@ namespace Biotransformer_Assistant
             Log.Debug(cfg.OpenFiles.ToString());
 
             if (cfg.OpenFiles)
-                Process.Start("notepad.exe", Path.Combine(Directory.GetCurrentDirectory(), FileData.RawCompoundInput));
+                Process.Start("notepad.exe", FileData.RawCompoundInput);
 
             Console.ReadLine();
             string RawCompounds = Path.Combine(Directory.GetCurrentDirectory(), FileData.RawCompoundInput);
 
-            string CheckFileComponents = File.ReadAllText(RawCompounds);
+            string CheckFileComponents = File.ReadAllText(FileData.RawCompoundInput);
             if (CheckFileComponents.Length < 1)
                 Exit("RawCompounds is Empty!");
 
@@ -365,7 +367,7 @@ namespace Biotransformer_Assistant
                 sw.Close();
             }
 
-            Program.End();
+            Program.Exit();
         }
 
         private static void Exit(string exitMessage)

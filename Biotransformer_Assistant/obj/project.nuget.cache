@@ -1,10 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "v+0DCpSbdMNuxGExf+Om4nv2Jfx77GlyCYicGlNYnvNwVIsk9B0ZCJX5dJU3icacE3dXPQJpXfphX/eYe+qOcQ==",
+  "dgSpecHash": "z1EHA2SpPndHGVWTeJZ6tCl/xvPfE/2E96LW6vG7ob7IWEAv96OHyck5UhqKZy3cCQ47o/RcOJ8x5kOMqqiVOA==",
   "success": true,
-  "projectFilePath": "E:\\Programming\\C#\\Biotransformer-Assistant\\Biotransformer_Assistant\\Biotransformer_Assistant.csproj",
-  "expectedPackageFiles": [
-    "C:\\Users\\bobwt\\.nuget\\packages\\microsoft.netcore.app.host.win-x64\\3.1.17\\microsoft.netcore.app.host.win-x64.3.1.17.nupkg.sha512"
-  ],
+  "projectFilePath": "C:\\Users\\mary\\Desktop\\BTA\\Biotransformer-Assistant\\Biotransformer_Assistant\\Biotransformer_Assistant.csproj",
+  "expectedPackageFiles": [],
   "logs": []
 }

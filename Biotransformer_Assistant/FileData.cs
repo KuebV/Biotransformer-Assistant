@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
+using System.Text.Json;
 
 namespace Biotransformer_Assistant
 {
@@ -14,66 +15,85 @@ namespace Biotransformer_Assistant
         public static string SkippedSMILES = Path.Combine(OutputDirectory, "Skipped_Compounds.txt");
         public static string SkippedSMILES_BiotransformerInput = Path.Combine(OutputDirectory, "SkippedSMILES_BiotransformerInput.txt");
 
-        /// <summary>
-        /// Located in Main Directory
-        /// </summary>
-        public static string RawCompoundInput = "RawCompounds.txt";
-        
-        /// <summary>
-        /// Located in Main Directory
-        /// </summary>
-        public static string CompoundSMILES = "Compounds_SMILES.txt";
+        public static string InputDirectory = Path.Combine(Directory.GetCurrentDirectory(), "Input");
+        public static string Settings = Path.Combine(Directory.GetCurrentDirectory(), "Settings");
 
-        public static string ConfigFile = "Biotransformer_Assistant_Config.json";
+        public static string Translations = Path.Combine(Settings, "translations.json");
+        public static string ConfigFile = Path.Combine(Settings, "config.json");
+
+        public static string CompoundSMILES = Path.Combine(InputDirectory, "Compounds_SMILES.txt");
+        public static string RawCompoundInput = Path.Combine(InputDirectory, "RawCompounds.txt");
 
         public static void SetupProgram()
         {
             if (!Directory.Exists(OutputDirectory))
                 Directory.CreateDirectory(OutputDirectory);
 
-            string BTI = Path.Combine(Directory.GetCurrentDirectory(), BiotransformerInput);
-            if (!File.Exists(BTI))
-                using (StreamWriter sw = new StreamWriter(BTI))
+            if (!Directory.Exists(InputDirectory))
+                Directory.CreateDirectory(InputDirectory);
+
+            if (!Directory.Exists(Settings))
+                Directory.CreateDirectory(Settings);
+
+            #region Output File Creation
+            if (!File.Exists(BiotransformerInput))
+                using (StreamWriter sw = new StreamWriter(BiotransformerInput))
                     sw.Close();
 
-            string PCI = Path.Combine(Directory.GetCurrentDirectory(), CompoundSMILES);
-            if (!File.Exists(PCI))
-                using (StreamWriter sw = new StreamWriter(PCI))
+            if (!File.Exists(SMILES_SpreadsheetKey))
+                using (StreamWriter sw = new StreamWriter(SMILES_SpreadsheetKey))
                     sw.Close();
 
-            string SMILES = Path.Combine(Directory.GetCurrentDirectory(), SMILES_SpreadsheetKey);
-            if (!File.Exists(SMILES))
-                using (StreamWriter sw = new StreamWriter(SMILES))
+            if (!File.Exists(PubChemCompounds))
+                using (StreamWriter sw = new StreamWriter(PubChemCompounds))
                     sw.Close();
 
-            string RawCompound = Path.Combine(Directory.GetCurrentDirectory(), RawCompoundInput);
-            if (!File.Exists(RawCompound))
-                using (StreamWriter sw = new StreamWriter(RawCompound))
+            if (!File.Exists(SkippedSMILES))
+                using (StreamWriter sw = new StreamWriter(SkippedSMILES))
                     sw.Close();
 
-            string pcc = Path.Combine(Directory.GetCurrentDirectory(), PubChemCompounds);
-            if (!File.Exists(pcc))
-                using (StreamWriter sw = new StreamWriter(pcc))
+            if (!File.Exists(SkippedSMILES_BiotransformerInput))
+                using (StreamWriter sw = new StreamWriter(SkippedSMILES_BiotransformerInput))
+                    sw.Close();
+            #endregion
+
+            #region Input File Creation
+            if (!File.Exists(CompoundSMILES))
+                using (StreamWriter sw = new StreamWriter(CompoundSMILES))
                     sw.Close();
 
-            string skippedCompounds = Path.Combine(Directory.GetCurrentDirectory(), SkippedSMILES);
-            if (!File.Exists(skippedCompounds))
-                using (StreamWriter sw = new StreamWriter(skippedCompounds))
+            if (!File.Exists(RawCompoundInput))
+                using (StreamWriter sw = new StreamWriter(RawCompoundInput))
                     sw.Close();
 
-            string skippedSMILES = Path.Combine(Directory.GetCurrentDirectory(), SkippedSMILES_BiotransformerInput);
-            if (!File.Exists(skippedSMILES))
-                using (StreamWriter sw = new StreamWriter(skippedSMILES))
-                    sw.Close();
+            #endregion
 
-            string config = Path.Combine(Directory.GetCurrentDirectory(), ConfigFile);
-            if (!File.Exists(config))
+            if (!File.Exists(ConfigFile))
             {
-                using (StreamWriter sw = new StreamWriter(config))
+                using (StreamWriter sw = new StreamWriter(ConfigFile))
                     sw.Close();
                 Config cfg = new Config();
                 cfg.LoadConfig();
             }
+
+            //if (!File.Exists(Translations))
+            //{
+            //    TranslationData data = new TranslationData
+            //    {
+            //        RawCompound = "RawCompounds.txt",
+            //        CompoundsForPubChem = "PubChemCompounds.txt",
+            //        PubChemSMILES = "Compounds_SMILES.txt"
+            //    };
+
+            //    string seralizeData = JsonSerializer.Serialize(data);
+            //    using (StreamWriter sw = new StreamWriter(Translations))
+            //    {
+            //        sw.Write(seralizeData);
+            //        sw.Close();
+            //    }
+            //}
+            
+
         }
     }
 }

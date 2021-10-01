@@ -13,7 +13,7 @@ namespace Biotransformer_Assistant
             Menu.StartMenu();
         }
 
-        public static void End()
+        public static void Exit()
         {
             Console.Clear();
             Log.WriteLine("---------------------------------------------------------------------------------------------------", ConsoleColor.Blue);
@@ -28,9 +28,10 @@ namespace Biotransformer_Assistant
             Log.WriteLine("\n\t- The file “SMILEs_SpreadsheetKey” now contains the SMILEs format for each compound, which can be directly copied/pasted into a spreadsheet.");
 
             Log.List(3, "Skipped Compounds");
-            Log.WriteLine("\n\t- The file “Skipped_Compounds” now contains the list of compounds, with their associated indices from “STEP1”, that PubChem could not find corresponding SMILEs formats for.");
+            Log.WriteLine("\n\t- The file “Skipped_Compounds” now contains the list of compounds, with their associated indices from RawCompounds, that PubChem could not find corresponding SMILEs formats for.");
 
             Console.ReadLine();
+            Environment.Exit(0);
         }
     }
 }
