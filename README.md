@@ -1,3 +1,4 @@
+![Github all releases](https://img.shields.io/github/downloads/KuebV/Biotransformer-Assistant/total.svg)
 # Biotransformer-Assistant
 BioTransformer-Assistant is a project made for the sole purpose of easily converting compounds into parsed down data, that can be inputted into different programs
 
