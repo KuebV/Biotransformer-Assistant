@@ -6,7 +6,7 @@ namespace Biotransformer_Assistant
 {
     class Program
     {
-        public static string ProgramVersion = "1.2.2";
+        public static string ProgramVersion = "1.2.3";
         static void Main(string[] args)
         {
             Log.Debug("Starting Process...");

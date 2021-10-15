@@ -125,31 +125,30 @@ namespace Biotransformer_Assistant
 
                 // We can have this be set to default, I dont think we're expecting any other value
                 default:
+                    // I refuse to believe there is ever going to be a sudden space in a SMILES compound
                     string[] possibleCompounds = possibleSmiles.Split(' ');
-                    foreach (string str in possibleCompounds)
+                    string str = possibleCompounds.Last();
+
+                    // After 20 minutes of tinkering, this is the best that works
+                    var checkForSpecial = new string(str.Where(c => Char.IsLetterOrDigit(c)
+                                        || Char.IsWhiteSpace(c)).ToArray());
+
+                    // Let's break down this if statement
+                    // 1. If the divided string contains an Uppercase C
+                    // 2. If the divided string contains an Comma Sign
+                    // 3. Suprisingly, I have yet to find a colon in the SMILES, it may not exist. Lets use that to our advantage
+                    if (str.Contains('C') && !str.Contains(',') && !str.Contains(':') && str != checkForSpecial)
                     {
+                        // Gets the index of the SMILE
+                        int indexOfSMILE = Array.IndexOf(possibleCompounds, str);
+                        string compoundName = string.Format("{0}_{1}", possibleCompounds[0], possibleCompounds[1]);
 
-                        // After 20 minutes of tinkering, this is the best that works
-                        var checkForSpecial = new string(str.Where(c => Char.IsLetterOrDigit(c)
-                                            || Char.IsWhiteSpace(c)).ToArray());
-
-                        // Let's break down this if statement
-                        // 1. If the divided string contains an Uppercase C
-                        // 2. If the divided string contains an Comma Sign
-                        // 3. Suprisingly, I have yet to find a colon in the SMILES, it may not exist. Lets use that to our advantage
-                        if (str.Contains('C') && !str.Contains(',') && !str.Contains(':') && str != checkForSpecial)
-                        {
-                            // Gets the index of the SMILE
-                            int indexOfSMILE = Array.IndexOf(possibleCompounds, str);
-                            string compoundName = string.Format("{0}_{1}", possibleCompounds[0], possibleCompounds[1]);
-
-                            // On the rare occasion that PubChem spits out a compound that has both 3 letters, and is a duplicate
-                            // If it exists already, enter it in as null
-                            if (!PubChemSMILES.ContainsKey(compoundName))
-                                PubChemSMILES.Add(compoundName, str);
-                            //else
-                            //    PubChemSMILES.Add(string.Format("{0}({1})", compoundName, PubChemSMILES.Count + 1), null);
-                        }
+                        // On the rare occasion that PubChem spits out a compound that has both 3 letters, and is a duplicate
+                        // If it exists already, enter it in as null
+                        if (!PubChemSMILES.ContainsKey(compoundName))
+                            PubChemSMILES.Add(compoundName, str);
+                        //else
+                        //    PubChemSMILES.Add(string.Format("{0}({1})", compoundName, PubChemSMILES.Count + 1), null);
                     }
                     break;
             }
